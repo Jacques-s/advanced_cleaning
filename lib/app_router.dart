@@ -7,6 +7,7 @@ import 'package:advancedcleaning/controllers/inspection_controller.dart';
 import 'package:advancedcleaning/controllers/inspection_mobile_controller.dart';
 import 'package:advancedcleaning/controllers/login_controller.dart';
 import 'package:advancedcleaning/controllers/procedure_controller.dart';
+import 'package:advancedcleaning/controllers/procedure_mobile_controller.dart';
 import 'package:advancedcleaning/controllers/question_controller.dart';
 import 'package:advancedcleaning/controllers/site_controller.dart';
 import 'package:advancedcleaning/controllers/user_controller.dart';
@@ -23,6 +24,7 @@ import 'package:advancedcleaning/screens/desktop/users_screen_desktop.dart';
 import 'package:advancedcleaning/screens/mobile/dashboard_screen_mobile.dart';
 import 'package:advancedcleaning/screens/mobile/inspection_screen_mobile.dart';
 import 'package:advancedcleaning/screens/mobile/login_screen_mobile.dart';
+import 'package:advancedcleaning/screens/mobile/procedures_screen_mobile.dart';
 import 'package:advancedcleaning/screens/mobile/settings_screen_mobile.dart';
 import 'package:advancedcleaning/screens/mobile/site_selection_screen_mobile.dart';
 import 'package:flutter/material.dart';
@@ -126,6 +128,12 @@ class AppPages {
       name: Routes.INSPECTION,
       page: () => const InspectionScreenMobile(),
       binding: InspectionMobileBinding(),
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: Routes.PROCEDURE_MANAGEMENT,
+      page: () => const ProceduresScreenMobile(),
+      binding: ProcedureMobileControllerBinding(),
       middlewares: [AuthMiddleware()],
     ),
     GetPage(

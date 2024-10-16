@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:advancedcleaning/app_router.dart';
@@ -220,8 +219,10 @@ class ProceduresScreenDesktop extends GetView<ProcedureController> {
                               padding: const EdgeInsets.all(8.0),
                               child: AspectRatio(
                                   aspectRatio: 1 / 1,
-                                  child: Image.network(
-                                    url,
+                                  child: FadeInImage.assetNetwork(
+                                    placeholder:
+                                        'assets/images/placeholder.png', // Add a placeholder image
+                                    image: url,
                                     fit: BoxFit.contain,
                                   )),
                             ),

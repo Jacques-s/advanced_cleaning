@@ -15,6 +15,7 @@ class GeneralTextFormField extends StatelessWidget {
     this.isMultiline = false,
     super.key,
     this.readOnly = false,
+    this.isNumber = false,
   });
 
   final TextEditingController controller;
@@ -27,6 +28,7 @@ class GeneralTextFormField extends StatelessWidget {
   final bool isMultiline;
   final String? Function(String?)? validator;
   final bool readOnly;
+  final bool isNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +44,11 @@ class GeneralTextFormField extends StatelessWidget {
         readOnly: readOnly,
         maxLines: isMultiline ? null : 1,
         minLines: isMultiline ? 3 : 1,
-        keyboardType:
-            isMultiline ? TextInputType.multiline : TextInputType.text,
+        keyboardType: isNumber
+            ? TextInputType.number
+            : isMultiline
+                ? TextInputType.multiline
+                : TextInputType.text,
         decoration: InputDecoration(
           label: Text(
             label,

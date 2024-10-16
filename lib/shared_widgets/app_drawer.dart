@@ -72,6 +72,21 @@ class AppDrawer extends GetView<AuthController> {
               Get.offAllNamed(Routes.INSPECTION);
             },
           ),
+          Column(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.playlist_add_check_outlined),
+                title: const Text('Procedures'),
+                selected: activePage == Routes.PROCEDURE_MANAGEMENT,
+                selectedTileColor: appAccentColor,
+                enabled: activePage != Routes.PROCEDURE_MANAGEMENT,
+                onTap: () {
+                  Get.offAllNamed(Routes.PROCEDURE_MANAGEMENT);
+                  print(activePage);
+                },
+              ),
+            ],
+          ),
           if (!kIsWeb && !Platform.isMacOS)
             ListTile(
               leading: const Icon(Icons.settings),
@@ -109,21 +124,6 @@ class AppDrawer extends GetView<AuthController> {
                 ),
               ],
             ),
-          Column(
-            children: [
-              ListTile(
-                leading: const Icon(Icons.playlist_add_check_outlined),
-                title: const Text('Procedures'),
-                selected: activePage == Routes.PROCEDURE_MANAGEMENT,
-                selectedTileColor: appAccentColor,
-                enabled: activePage != Routes.PROCEDURE_MANAGEMENT,
-                onTap: () {
-                  Get.offAllNamed(Routes.PROCEDURE_MANAGEMENT);
-                  print(activePage);
-                },
-              ),
-            ],
-          ),
           const Divider(
             color: appSecondaryColor,
           ),

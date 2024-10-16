@@ -187,7 +187,19 @@ class AuthController extends GetxController {
       }
 
       _isLoading.value = false;
-      Get.offAllNamed(Routes.DASHBOARD);
+
+      if ((!kIsWeb && !Platform.isMacOS) && currentUser != null) {
+        List<String> siteIds = _currentUser.value?.siteIds ?? [];
+
+        if (siteIds.isNotEmpty && siteIds.length == 1) {
+          _currentUserSiteId.value = siteIds.first;
+          Get.offAllNamed(Routes.DASHBOARD);
+        } else {
+          Get.offAllNamed(Routes.SITESELECTION);
+        }
+      } else {
+        Get.offAllNamed(Routes.DASHBOARD);
+      }
     } catch (e) {
       _isLoading.value = false;
       if (e == 'NotFound') {
