@@ -6,6 +6,7 @@ import 'package:advancedcleaning/controllers/dashboard_mobile_controller.dart';
 import 'package:advancedcleaning/controllers/inspection_controller.dart';
 import 'package:advancedcleaning/controllers/inspection_mobile_controller.dart';
 import 'package:advancedcleaning/controllers/login_controller.dart';
+import 'package:advancedcleaning/controllers/procedure_controller.dart';
 import 'package:advancedcleaning/controllers/question_controller.dart';
 import 'package:advancedcleaning/controllers/site_controller.dart';
 import 'package:advancedcleaning/controllers/user_controller.dart';
@@ -15,6 +16,7 @@ import 'package:advancedcleaning/screens/desktop/dashboard_screen_desktop.dart';
 import 'package:advancedcleaning/screens/desktop/inpsections_screen_desktop.dart';
 import 'package:advancedcleaning/screens/desktop/inspection_view_screen.dart';
 import 'package:advancedcleaning/screens/desktop/login_screen_desktop.dart';
+import 'package:advancedcleaning/screens/desktop/procedures_screen_desktop.dart';
 import 'package:advancedcleaning/screens/desktop/questions_screen_desktop.dart';
 import 'package:advancedcleaning/screens/desktop/sites_screen_desktop.dart';
 import 'package:advancedcleaning/screens/desktop/users_screen_desktop.dart';
@@ -38,6 +40,7 @@ abstract class Routes {
   static const INSPECTIONVIEW = '/inspection-view';
   static const SETTINGS = '/settings';
   static const SITESELECTION = '/site-selection';
+  static const PROCEDURE_MANAGEMENT = '/procedure-management';
 }
 
 class AppPages {
@@ -92,6 +95,12 @@ class AppPages {
       name: Routes.QUESTION_MANAGEMENT,
       page: () => const QuestionsScreenDesktop(),
       binding: QuestionManagementBinding(),
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: Routes.PROCEDURE_MANAGEMENT,
+      page: () => const ProceduresScreenDesktop(),
+      binding: ProcedureControllerBinding(),
       middlewares: [AuthMiddleware()],
     )
   ];

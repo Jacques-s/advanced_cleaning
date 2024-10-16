@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,8 +19,8 @@ class ManagementDialog extends StatelessWidget {
 
   final Key formKey;
   final String dialogTitle;
-  final String submissionLabel;
-  final Function onSubmission;
+  final String? submissionLabel;
+  final Function? onSubmission;
   final List<Widget> formFields;
   final bool isLoading;
 
@@ -49,18 +51,19 @@ class ManagementDialog extends StatelessWidget {
                     GeneralSubmitButton(
                         backgroundColor: appDangerColor,
                         onPress: () {
-                          if (kIsWeb) {
+                          if (kIsWeb || Platform.isMacOS) {
                             Navigator.pop(context);
                           } else {
                             Get.back();
                           }
                         },
                         label: 'Cancel'),
-                    GeneralSubmitButton(
-                      onPress: () => onSubmission(),
-                      label: submissionLabel,
-                      isLoading: isLoading,
-                    )
+                    if (submissionLabel != null && onSubmission != null)
+                      GeneralSubmitButton(
+                        onPress: () => onSubmission!(),
+                        label: submissionLabel!,
+                        isLoading: isLoading,
+                      )
                   ],
                 ),
               ),

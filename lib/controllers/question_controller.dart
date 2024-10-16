@@ -441,40 +441,40 @@ class QuestionController extends GetxController {
 
         //Add headers
         var idCell = sheetObject.cell(CellIndex.indexByString('A1'));
-        idCell.value = const TextCellValue('Question ID');
+        idCell.value = TextCellValue('Question ID');
         idCell.cellStyle = cellStyle;
 
         var titleCell = sheetObject.cell(CellIndex.indexByString('B1'));
-        titleCell.value = const TextCellValue('Question Title');
+        titleCell.value = TextCellValue('Question Title');
         titleCell.cellStyle = cellStyle;
 
         var areaIdCell = sheetObject.cell(CellIndex.indexByString('C1'));
-        areaIdCell.value = const TextCellValue('Area ID');
+        areaIdCell.value = TextCellValue('Area ID');
         areaIdCell.cellStyle = cellStyle;
 
         var frequencyDailyCell =
             sheetObject.cell(CellIndex.indexByString('D1'));
-        frequencyDailyCell.value = const TextCellValue('Daily');
+        frequencyDailyCell.value = TextCellValue('Daily');
         frequencyDailyCell.cellStyle = cellStyle;
 
         var frequencyWeeklyCell =
             sheetObject.cell(CellIndex.indexByString('E1'));
-        frequencyWeeklyCell.value = const TextCellValue('Weekly');
+        frequencyWeeklyCell.value = TextCellValue('Weekly');
         frequencyWeeklyCell.cellStyle = cellStyle;
 
         var frequencyMonthlyCell =
             sheetObject.cell(CellIndex.indexByString('F1'));
-        frequencyMonthlyCell.value = const TextCellValue('Monthly');
+        frequencyMonthlyCell.value = TextCellValue('Monthly');
         frequencyMonthlyCell.cellStyle = cellStyle;
 
         var frequencyQuarterlyCell =
             sheetObject.cell(CellIndex.indexByString('G1'));
-        frequencyQuarterlyCell.value = const TextCellValue('Quarterly');
+        frequencyQuarterlyCell.value = TextCellValue('Quarterly');
         frequencyQuarterlyCell.cellStyle = cellStyle;
 
         var frequencyAnnuallyCell =
             sheetObject.cell(CellIndex.indexByString('H1'));
-        frequencyAnnuallyCell.value = const TextCellValue('Annually');
+        frequencyAnnuallyCell.value = TextCellValue('Annually');
         frequencyAnnuallyCell.cellStyle = cellStyle;
 
         // Add Firestore data to Excel
@@ -485,20 +485,20 @@ class QuestionController extends GetxController {
             TextCellValue(question.title),
             TextCellValue(question.areaId),
             question.frequency == InspectionFrequency.daily
-                ? const TextCellValue('X')
-                : const TextCellValue(''),
+                ? TextCellValue('X')
+                : TextCellValue(''),
             question.frequency == InspectionFrequency.weekly
-                ? const TextCellValue('X')
-                : const TextCellValue(''),
+                ? TextCellValue('X')
+                : TextCellValue(''),
             question.frequency == InspectionFrequency.monthly
-                ? const TextCellValue('X')
-                : const TextCellValue(''),
+                ? TextCellValue('X')
+                : TextCellValue(''),
             question.frequency == InspectionFrequency.quarterly
-                ? const TextCellValue('X')
-                : const TextCellValue(''),
+                ? TextCellValue('X')
+                : TextCellValue(''),
             question.frequency == InspectionFrequency.annually
-                ? const TextCellValue('X')
-                : const TextCellValue(''),
+                ? TextCellValue('X')
+                : TextCellValue(''),
           ]);
         }
 
@@ -541,40 +541,40 @@ class QuestionController extends GetxController {
 
         //Add headers
         var idCell = sheetObject.cell(CellIndex.indexByString('A1'));
-        idCell.value = const TextCellValue('Question ID');
+        idCell.value = TextCellValue('Question ID');
         idCell.cellStyle = cellStyle;
 
         var titleCell = sheetObject.cell(CellIndex.indexByString('B1'));
-        titleCell.value = const TextCellValue('Question Title');
+        titleCell.value = TextCellValue('Question Title');
         titleCell.cellStyle = cellStyle;
 
         var areaIdCell = sheetObject.cell(CellIndex.indexByString('C1'));
-        areaIdCell.value = const TextCellValue('Area ID');
+        areaIdCell.value = TextCellValue('Area ID');
         areaIdCell.cellStyle = cellStyle;
 
         var frequencyDailyCell =
             sheetObject.cell(CellIndex.indexByString('D1'));
-        frequencyDailyCell.value = const TextCellValue('Daily');
+        frequencyDailyCell.value = TextCellValue('Daily');
         frequencyDailyCell.cellStyle = cellStyle;
 
         var frequencyWeeklyCell =
             sheetObject.cell(CellIndex.indexByString('E1'));
-        frequencyWeeklyCell.value = const TextCellValue('Weekly');
+        frequencyWeeklyCell.value = TextCellValue('Weekly');
         frequencyWeeklyCell.cellStyle = cellStyle;
 
         var frequencyMonthlyCell =
             sheetObject.cell(CellIndex.indexByString('F1'));
-        frequencyMonthlyCell.value = const TextCellValue('Monthly');
+        frequencyMonthlyCell.value = TextCellValue('Monthly');
         frequencyMonthlyCell.cellStyle = cellStyle;
 
         var frequencyQuarterlyCell =
             sheetObject.cell(CellIndex.indexByString('G1'));
-        frequencyQuarterlyCell.value = const TextCellValue('Quarterly');
+        frequencyQuarterlyCell.value = TextCellValue('Quarterly');
         frequencyQuarterlyCell.cellStyle = cellStyle;
 
         var frequencyAnnuallyCell =
             sheetObject.cell(CellIndex.indexByString('H1'));
-        frequencyAnnuallyCell.value = const TextCellValue('Annually');
+        frequencyAnnuallyCell.value = TextCellValue('Annually');
         frequencyAnnuallyCell.cellStyle = cellStyle;
 
         // Save the Excel file to the device

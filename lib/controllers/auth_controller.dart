@@ -36,6 +36,7 @@ class AuthController extends GetxController {
     //check if there is a logged in user
     if (_currentUser.value == null) {
       if (_auth.currentUser != null) {
+        //signOut();
         reauthenticateUser();
       }
     }
@@ -170,25 +171,23 @@ class AuthController extends GetxController {
   Future<void> reauthenticateUser() async {
     _isLoading.value = true;
     try {
-      if (kIsWeb) {
-        User? user = _auth.currentUser;
+      User? user = _auth.currentUser;
 
-        if (user != null) {
-          //get the user collection to set the current user information
-          DocumentSnapshot userSnapshot =
-              await _firestore.collection(userPath).doc(user.uid).get();
+      if (user != null) {
+        //get the user collection to set the current user information
+        DocumentSnapshot userSnapshot =
+            await _firestore.collection(userPath).doc(user.uid).get();
 
-          if (userSnapshot.exists) {
-            _currentUser.value = AppUser.fromFirestore(userSnapshot);
-            _currentUserId.value = user.uid;
-          } else {
-            throw ('NotFound');
-          }
+        if (userSnapshot.exists) {
+          _currentUser.value = AppUser.fromFirestore(userSnapshot);
+          _currentUserId.value = user.uid;
+        } else {
+          throw ('NotFound');
         }
-
-        _isLoading.value = false;
-        Get.offAllNamed(Routes.DASHBOARD);
       }
+
+      _isLoading.value = false;
+      Get.offAllNamed(Routes.DASHBOARD);
     } catch (e) {
       _isLoading.value = false;
       if (e == 'NotFound') {

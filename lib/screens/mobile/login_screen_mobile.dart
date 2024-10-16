@@ -12,8 +12,8 @@ class LoginScreenMobile extends GetView<LoginController> {
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
 
   Form loginForm() {
-    // controller.emailController.text = 'test@test.com';
-    // controller.passwordController.text = '12345678';
+    controller.emailController.text = 'test@test.com';
+    controller.passwordController.text = '12345678';
     return Form(
       key: _loginFormKey,
       child: Column(

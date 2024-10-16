@@ -595,15 +595,15 @@ class AreaController extends GetxController {
 
         //Add headers
         var idCell = sheetObject.cell(CellIndex.indexByString('A1'));
-        idCell.value = const TextCellValue('Area ID');
+        idCell.value = TextCellValue('Area ID');
         idCell.cellStyle = cellStyle;
 
         var titleCell = sheetObject.cell(CellIndex.indexByString('B1'));
-        titleCell.value = const TextCellValue('Area Title');
+        titleCell.value = TextCellValue('Area Title');
         titleCell.cellStyle = cellStyle;
 
         var barcodeCell = sheetObject.cell(CellIndex.indexByString('C1'));
-        barcodeCell.value = const TextCellValue('Barcode');
+        barcodeCell.value = TextCellValue('Barcode');
         barcodeCell.cellStyle = cellStyle;
 
         // Add Firestore data to Excel
@@ -650,15 +650,15 @@ class AreaController extends GetxController {
 
         //Add headers
         var idCell = sheetObject.cell(CellIndex.indexByString('A1'));
-        idCell.value = const TextCellValue('Area ID');
+        idCell.value = TextCellValue('Area ID');
         idCell.cellStyle = cellStyle;
 
         var titleCell = sheetObject.cell(CellIndex.indexByString('B1'));
-        titleCell.value = const TextCellValue('Area Title');
+        titleCell.value = TextCellValue('Area Title');
         titleCell.cellStyle = cellStyle;
 
         var barcodeCell = sheetObject.cell(CellIndex.indexByString('C1'));
-        barcodeCell.value = const TextCellValue('Barcode');
+        barcodeCell.value = TextCellValue('Barcode');
         barcodeCell.cellStyle = cellStyle;
 
         // Save the Excel file to the device

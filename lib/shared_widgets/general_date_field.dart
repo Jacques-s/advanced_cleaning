@@ -2,48 +2,55 @@ import 'package:advancedcleaning/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class GeneralTextFormField extends StatelessWidget {
-  const GeneralTextFormField({
+class GeneralDateField extends StatelessWidget {
+  const GeneralDateField({
     required this.controller,
     required this.label,
     required this.validator,
-    this.obscureText = false,
     this.borderColor = appPrimaryColor,
     this.borderWidth = 2,
     this.width,
     this.height,
-    this.isMultiline = false,
+    this.initialDate,
+    this.firstDate,
+    this.lastDate,
     super.key,
-    this.readOnly = false,
   });
 
   final TextEditingController controller;
   final String label;
-  final bool obscureText;
   final Color borderColor;
   final double borderWidth;
   final double? width;
   final double? height;
-  final bool isMultiline;
   final String? Function(String?)? validator;
-  final bool readOnly;
+  final DateTime? initialDate;
+  final DateTime? firstDate;
+  final DateTime? lastDate;
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: initialDate ?? DateTime.now(),
+      firstDate: firstDate ?? DateTime(1900),
+      lastDate: lastDate ?? DateTime(2100),
+    );
+    if (picked != null) {
+      controller.text = picked.toIso8601String().split('T')[0];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(Get.width * 0.01),
       width: width ?? Get.width * 0.6,
-      height: isMultiline
-          ? (height ?? Get.height * 0.15)
-          : (height ?? Get.height * 0.1),
+      height: height ?? Get.height * 0.1,
       child: TextFormField(
         controller: controller,
         validator: validator,
-        readOnly: readOnly,
-        maxLines: isMultiline ? null : 1,
-        minLines: isMultiline ? 3 : 1,
-        keyboardType:
-            isMultiline ? TextInputType.multiline : TextInputType.text,
+        readOnly: true,
+        onTap: () => _selectDate(context),
         decoration: InputDecoration(
           label: Text(
             label,
@@ -68,8 +75,8 @@ class GeneralTextFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: Colors.red, width: borderWidth),
           ),
+          suffixIcon: Icon(Icons.calendar_today),
         ),
-        obscureText: obscureText,
       ),
     );
   }

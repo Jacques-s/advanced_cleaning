@@ -32,7 +32,7 @@ class GeneralMultiSelectDropdownFormField extends StatelessWidget {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.transparent,
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           border: Border.all(
             color: borderColor,
