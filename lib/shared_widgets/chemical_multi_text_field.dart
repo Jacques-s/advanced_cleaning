@@ -76,7 +76,7 @@ class ChemicalMultiTextField extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    '${index + 1}. ${value.title} (${value.dilutionRange})',
+                                    chipText,
                                     style: TextStyle(fontSize: 16),
                                     maxLines: null,
                                   ),

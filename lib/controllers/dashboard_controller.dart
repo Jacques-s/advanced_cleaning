@@ -1,6 +1,7 @@
 import 'package:advancedcleaning/constants/app_constants.dart';
 import 'package:advancedcleaning/models/answer_model.dart';
 import 'package:advancedcleaning/models/area_model.dart';
+import 'package:advancedcleaning/models/chemical_log_model.dart';
 import 'package:advancedcleaning/models/corrective_action_model.dart';
 import 'package:advancedcleaning/models/enum_model.dart';
 import 'package:advancedcleaning/models/question_model.dart';
@@ -554,6 +555,32 @@ class DashboardController extends GetxController {
           duration: appSnackBarDuration, backgroundColor: appSnackBarColor);
     }
     return {};
+  }
+
+  Future<List<ChemicalLog>> fetchChemicalLogsReport() async {
+    try {
+      QuerySnapshot querySnapshot = await _firestore
+          .collection(chemicalLogPath)
+          .where('accountId', isEqualTo: authController.currentAccountId)
+          .where('siteId', isEqualTo: selectedSiteId.value)
+          .where('createdAt',
+              isGreaterThanOrEqualTo: Timestamp.fromDate(startDate.value!))
+          .where('createdAt',
+              isLessThanOrEqualTo: Timestamp.fromDate(endDate.value!))
+          .orderBy('createdAt', descending: true)
+          .get();
+
+      List<ChemicalLog> logs = querySnapshot.docs
+          .map((doc) => ChemicalLog.fromFirestore(doc))
+          .toList();
+
+      return logs;
+    } catch (e) {
+      print('Error loading logs: $e');
+      Get.snackbar('Error', 'Error loading actions: $e',
+          duration: appSnackBarDuration, backgroundColor: appSnackBarColor);
+    }
+    return [];
   }
 
   Future<void> generateVerificationPDF() async {

@@ -1,10 +1,12 @@
 import 'package:advancedcleaning/constants/app_constants.dart';
 import 'package:advancedcleaning/controllers/dashboard_controller.dart';
 import 'package:advancedcleaning/models/answer_model.dart';
+import 'package:advancedcleaning/models/chemical_log_model.dart';
 import 'package:advancedcleaning/models/corrective_action_model.dart';
 import 'package:advancedcleaning/models/question_model.dart';
 import 'package:advancedcleaning/shared_widgets/app_drawer.dart';
 import 'package:advancedcleaning/shared_widgets/dashboard_reports.dart/checklist_report.dart';
+import 'package:advancedcleaning/shared_widgets/dashboard_reports.dart/chemical_log_report.dart';
 import 'package:advancedcleaning/shared_widgets/dashboard_reports.dart/failure_report.dart';
 import 'package:advancedcleaning/shared_widgets/dashboard_reports.dart/issues_actions_report.dart';
 import 'package:advancedcleaning/shared_widgets/dashboard_reports.dart/site_status_report.dart';
@@ -24,6 +26,7 @@ class DashboardScreenDesktop extends GetView<DashboardController> {
     DashboardMenuItem('failures', 'Failures'),
     DashboardMenuItem('top_issues', 'Top Issues'),
     DashboardMenuItem('issue_actions', 'Issue Actions'),
+    DashboardMenuItem('chemical_logs', 'Chemical Logs'),
   ];
 
   void startDatePicker(BuildContext context) async {
@@ -185,6 +188,18 @@ class DashboardScreenDesktop extends GetView<DashboardController> {
                 } else {
                   final answers = snapshot.data;
                   return IssueActionsReport(answers: answers!);
+                }
+              });
+        }
+      case 'chemical_logs':
+        {
+          return FutureBuilder<List<ChemicalLog>>(
+              future: controller.fetchChemicalLogsReport(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  return ChemicalLogReport(logs: snapshot.data!);
                 }
               });
         }

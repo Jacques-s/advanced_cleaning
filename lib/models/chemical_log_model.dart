@@ -14,7 +14,7 @@ class ChemicalLog {
   final String chemicalAmount;
   final String batchNumber;
   final String expiryDate;
-  final String testKitExpiryDate;
+  final String? testKitExpiryDate;
   final String waterAmount;
   final String issuedTo;
   final String? numberOfDrops;
@@ -47,22 +47,22 @@ class ChemicalLog {
     return ChemicalLog(
       id: doc.id,
       createdAt: (data['createdAt'] as Timestamp).toDate(),
-      createdById: data['createdById'],
-      createdName: data['createdName'],
-      accountId: data['accountId'],
-      siteId: data['siteId'],
-      chemicalId: data['chemicalId'],
-      chemicalName: data['chemicalName'],
-      chemicalAmount: data['chemicalAmount'],
-      batchNumber: data['batchNumber'],
-      expiryDate: data['expiryDate'],
-      testKitExpiryDate: data['testKitExpiryDate'],
-      waterAmount: data['waterAmount'],
-      issuedTo: data['issuedTo'],
-      numberOfDrops: data['numberOfDrops'],
-      factor: data['factor'],
-      verification: data['verification'],
-      correctiveAction: data['correctiveAction'],
+      createdById: data['createdById'] ?? '',
+      createdName: data['createdName'] ?? '',
+      accountId: data['accountId'] ?? '',
+      siteId: data['siteId'] ?? '',
+      chemicalId: data['chemicalId'] ?? '',
+      chemicalName: data['chemicalName'] ?? '',
+      chemicalAmount: data['chemicalAmount'] ?? '',
+      batchNumber: data['batchNumber'] ?? '',
+      expiryDate: data['expiryDate'] ?? '',
+      testKitExpiryDate: data['testKitExpiryDate'] ?? '',
+      waterAmount: data['waterAmount'] ?? '',
+      issuedTo: data['issuedTo'] ?? '',
+      numberOfDrops: data['numberOfDrops'] ?? '',
+      factor: data['factor'] ?? '',
+      verification: data['verification'] ?? '',
+      correctiveAction: data['correctiveAction'] ?? '',
     );
   }
 

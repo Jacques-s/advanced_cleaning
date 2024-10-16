@@ -86,7 +86,7 @@ class ChemicalMobileController extends GetxController {
       ChemicalLog chemicalLog = ChemicalLog(
         id: '',
         createdAt: DateTime.now(),
-        createdById: authController.currentUserId!,
+        createdById: authController.currentUser!.id,
         createdName: authController.currentUser!.fullName,
         accountId: authController.currentAccountId!,
         siteId: authController.currentUserSiteId!,
