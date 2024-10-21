@@ -1,65 +1,87 @@
 import 'package:advancedcleaning/constants/app_constants.dart';
-import 'package:advancedcleaning/models/answer_model.dart';
 import 'package:advancedcleaning/models/chemical_log_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class ChemicalLogReport extends StatelessWidget {
-  const ChemicalLogReport({super.key, required this.logs});
+  const ChemicalLogReport({super.key, required this.chemicalLogs});
 
-  final List<ChemicalLog> logs;
+  final Map<String, List<ChemicalLog>> chemicalLogs;
 
   List<TableRow> itemRows() {
     List<TableRow> rows = [];
-    for (var log in logs) {
+
+    chemicalLogs.forEach((chemicalName, logs) {
       rows.add(TableRow(
+        decoration: BoxDecoration(color: appSecondaryColor),
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              DateFormat('yyyy-MM-dd HH:mm').format(log.createdAt),
+              chemicalName,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.white),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              log.chemicalAmount,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              log.batchNumber,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              log.expiryDate,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              log.issuedTo,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              log.verification ?? '',
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              log.correctiveAction ?? '',
-            ),
-          ),
+          const SizedBox(),
+          const SizedBox(),
+          const SizedBox(),
+          const SizedBox(),
+          const SizedBox(),
+          const SizedBox(),
         ],
       ));
-    }
+
+      for (var log in logs) {
+        rows.add(TableRow(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                DateFormat('yyyy-MM-dd HH:mm').format(log.createdAt),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                log.chemicalAmount,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                log.batchNumber,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                log.expiryDate,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                log.issuedTo,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                log.verification ?? '',
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                log.correctiveAction ?? '',
+              ),
+            ),
+          ],
+        ));
+      }
+    });
 
     return rows;
   }

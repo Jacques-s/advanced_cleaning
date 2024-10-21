@@ -193,13 +193,14 @@ class DashboardScreenDesktop extends GetView<DashboardController> {
         }
       case 'chemical_logs':
         {
-          return FutureBuilder<List<ChemicalLog>>(
+          return FutureBuilder<Map<String, List<ChemicalLog>>>(
               future: controller.fetchChemicalLogsReport(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else {
-                  return ChemicalLogReport(logs: snapshot.data!);
+                  final logs = snapshot.data;
+                  return ChemicalLogReport(chemicalLogs: logs!);
                 }
               });
         }
@@ -237,6 +238,11 @@ class DashboardScreenDesktop extends GetView<DashboardController> {
       case 'issue_actions':
         {
           controller.generateIssueActionsPDF();
+          break;
+        }
+      case 'chemical_logs':
+        {
+          controller.generateChemicalLogPDF();
           break;
         }
       default:

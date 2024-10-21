@@ -7,6 +7,7 @@ import 'package:advancedcleaning/models/enum_model.dart';
 import 'package:advancedcleaning/models/question_model.dart';
 import 'package:advancedcleaning/models/site_model.dart';
 import 'package:advancedcleaning/shared_widgets/dashboard_pdfs/checklist_pdf.dart';
+import 'package:advancedcleaning/shared_widgets/dashboard_pdfs/chemical_log_pdf.dart';
 import 'package:advancedcleaning/shared_widgets/dashboard_pdfs/failure_pdf.dart';
 import 'package:advancedcleaning/shared_widgets/dashboard_pdfs/issue_actions_pdf.dart';
 import 'package:advancedcleaning/shared_widgets/dashboard_pdfs/top_issues_pdf.dart';
@@ -557,7 +558,7 @@ class DashboardController extends GetxController {
     return {};
   }
 
-  Future<List<ChemicalLog>> fetchChemicalLogsReport() async {
+  Future<Map<String, List<ChemicalLog>>> fetchChemicalLogsReport() async {
     try {
       QuerySnapshot querySnapshot = await _firestore
           .collection(chemicalLogPath)
@@ -574,13 +575,21 @@ class DashboardController extends GetxController {
           .map((doc) => ChemicalLog.fromFirestore(doc))
           .toList();
 
-      return logs;
+      Map<String, List<ChemicalLog>> finalMappedList = {};
+      for (var log in logs) {
+        if (!finalMappedList.containsKey(log.chemicalName)) {
+          finalMappedList[log.chemicalName] = [];
+        }
+        finalMappedList[log.chemicalName]!.add(log);
+      }
+
+      return finalMappedList;
     } catch (e) {
       print('Error loading logs: $e');
       Get.snackbar('Error', 'Error loading actions: $e',
           duration: appSnackBarDuration, backgroundColor: appSnackBarColor);
     }
-    return [];
+    return {};
   }
 
   Future<void> generateVerificationPDF() async {
@@ -592,6 +601,22 @@ class DashboardController extends GetxController {
           siteTitle: selectedSiteTitle.value ?? '',
           startDate: startDate.value ?? DateTime.now());
       verificationPdf.generateReport();
+    } catch (e) {
+      print('Error generating report: $e');
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> generateChemicalLogPDF() async {
+    try {
+      isLoading.value = true;
+      final chemicalLogs = await fetchChemicalLogsReport();
+      final chemicalLogPdf = ChemicalLogPdf(
+          chemicalLogs: chemicalLogs,
+          siteTitle: selectedSiteTitle.value ?? '',
+          startDate: DateTime.now());
+      chemicalLogPdf.generateReport();
     } catch (e) {
       print('Error generating report: $e');
     } finally {
