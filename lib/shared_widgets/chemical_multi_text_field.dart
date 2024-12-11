@@ -1,5 +1,5 @@
 import 'package:advancedcleaning/constants/app_constants.dart';
-import 'package:advancedcleaning/models/chemical_model.dart';
+import 'package:advancedcleaning/models/chemical_models/chemical_model.dart';
 import 'package:advancedcleaning/shared_widgets/general_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +13,8 @@ class ChemicalMultiTextField extends StatelessWidget {
       required this.titleController,
       required this.dilutionRangeController,
       required this.onItemAdded,
-      required this.onItemDeleted});
+      required this.onItemDeleted,
+      required this.accountId});
 
   final List<Chemical> items;
   final String title;
@@ -22,6 +23,7 @@ class ChemicalMultiTextField extends StatelessWidget {
   final TextEditingController dilutionRangeController;
   final Function(Chemical) onItemAdded;
   final Function(Chemical) onItemDeleted;
+  final String accountId;
 
   @override
   Widget build(BuildContext context) {
@@ -123,6 +125,7 @@ class ChemicalMultiTextField extends StatelessWidget {
                               updatedAt: DateTime.now(),
                               title: text,
                               dilutionRange: dilutionRange,
+                              accountId: accountId,
                             ));
                             titleController.clear();
                             dilutionRangeController.clear();

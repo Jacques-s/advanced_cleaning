@@ -1,6 +1,6 @@
 import 'package:advancedcleaning/app_router.dart';
 import 'package:advancedcleaning/constants/app_constants.dart';
-import 'package:advancedcleaning/controllers/mobile_sync_controller.dart';
+import 'package:advancedcleaning/controllers/mobile_controllers/mobile_sync_controller.dart';
 import 'package:advancedcleaning/models/site_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

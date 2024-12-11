@@ -1,9 +1,9 @@
 import 'package:advancedcleaning/constants/app_constants.dart';
 import 'package:advancedcleaning/controllers/dashboard_controller.dart';
-import 'package:advancedcleaning/models/answer_model.dart';
-import 'package:advancedcleaning/models/chemical_log_model.dart';
+import 'package:advancedcleaning/models/inspection_models/answer_model.dart';
+import 'package:advancedcleaning/models/chemical_models/chemical_log_model.dart';
 import 'package:advancedcleaning/models/corrective_action_model.dart';
-import 'package:advancedcleaning/models/question_model.dart';
+import 'package:advancedcleaning/models/inspection_models/question_model.dart';
 import 'package:advancedcleaning/shared_widgets/app_drawer.dart';
 import 'package:advancedcleaning/shared_widgets/dashboard_reports.dart/checklist_report.dart';
 import 'package:advancedcleaning/shared_widgets/dashboard_reports.dart/chemical_log_report.dart';

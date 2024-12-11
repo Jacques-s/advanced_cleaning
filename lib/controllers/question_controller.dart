@@ -4,7 +4,7 @@ import 'package:advancedcleaning/constants/app_constants.dart';
 import 'package:advancedcleaning/controllers/auth_controller.dart';
 import 'package:advancedcleaning/controllers/site_controller.dart';
 import 'package:advancedcleaning/models/area_model.dart';
-import 'package:advancedcleaning/models/question_model.dart';
+import 'package:advancedcleaning/models/inspection_models/question_model.dart';
 import 'package:advancedcleaning/models/enum_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:excel/excel.dart';

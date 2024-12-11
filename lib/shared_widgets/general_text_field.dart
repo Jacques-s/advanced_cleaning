@@ -16,6 +16,7 @@ class GeneralTextFormField extends StatelessWidget {
     super.key,
     this.readOnly = false,
     this.isNumber = false,
+    this.onChanged,
   });
 
   final TextEditingController controller;
@@ -29,6 +30,7 @@ class GeneralTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool readOnly;
   final bool isNumber;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,7 @@ class GeneralTextFormField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         validator: validator,
+        onChanged: onChanged,
         readOnly: readOnly,
         maxLines: isMultiline ? null : 1,
         minLines: isMultiline ? 3 : 1,

@@ -1,5 +1,5 @@
 import 'package:advancedcleaning/constants/app_constants.dart';
-import 'package:advancedcleaning/controllers/dashboard_mobile_controller.dart';
+import 'package:advancedcleaning/controllers/mobile_controllers/dashboard_mobile_controller.dart';
 import 'package:advancedcleaning/shared_widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

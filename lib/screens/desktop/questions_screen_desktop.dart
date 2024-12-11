@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:advancedcleaning/constants/app_constants.dart';
 import 'package:advancedcleaning/controllers/question_controller.dart';
 import 'package:advancedcleaning/data_tables/question_management.dart';
-import 'package:advancedcleaning/models/question_model.dart';
+import 'package:advancedcleaning/models/inspection_models/question_model.dart';
 import 'package:advancedcleaning/models/enum_model.dart';
 import 'package:advancedcleaning/shared_widgets/app_drawer.dart';
 import 'package:advancedcleaning/shared_widgets/general_dropdown_field.dart';

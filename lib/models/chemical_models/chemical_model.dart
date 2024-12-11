@@ -9,13 +9,11 @@ class Chemical {
   final String title;
   final String? description;
   final String dilutionRange;
+  final String accountId;
 
   String get chemicalId {
-    String slug = title.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '_');
-    if (dilutionRange.isNotEmpty) {
-      slug +=
-          '_${dilutionRange.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '_')}';
-    }
+    String slug =
+        '${accountId}__${title.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '_')}';
     return slug.trim();
   }
 
@@ -25,7 +23,8 @@ class Chemical {
       required this.updatedAt,
       required this.title,
       this.description,
-      required this.dilutionRange});
+      required this.dilutionRange,
+      required this.accountId});
 
   factory Chemical.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map<String, dynamic>;
@@ -36,6 +35,7 @@ class Chemical {
       title: data['title'],
       description: data['description'],
       dilutionRange: data['dilutionRange'],
+      accountId: data['accountId'],
     );
   }
 
@@ -46,6 +46,7 @@ class Chemical {
       'title': title,
       'description': description,
       'dilutionRange': dilutionRange,
+      'accountId': accountId,
     };
   }
 
@@ -57,6 +58,7 @@ class Chemical {
       title: data['title'],
       description: data['description'],
       dilutionRange: data['dilutionRange'],
+      accountId: data['accountId'],
     );
   }
 
@@ -68,6 +70,7 @@ class Chemical {
       'title': title,
       'description': description,
       'dilutionRange': dilutionRange,
+      'accountId': accountId,
     };
   }
 }

@@ -1,12 +1,12 @@
 import 'package:advancedcleaning/constants/app_constants.dart';
 import 'package:advancedcleaning/controllers/auth_controller.dart';
-import 'package:advancedcleaning/models/chemical_log_model.dart';
-import 'package:advancedcleaning/models/chemical_model.dart';
+import 'package:advancedcleaning/models/chemical_models/chemical_log_model.dart';
+import 'package:advancedcleaning/models/chemical_models/chemical_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ChemicalMobileController extends GetxController {
+class ChemicalLogController extends GetxController {
   final AuthController authController = Get.find();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -121,9 +121,9 @@ class ChemicalMobileController extends GetxController {
   }
 }
 
-class ChemicalMobileControllerBinding extends Bindings {
+class ChemicalLogControllerBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ChemicalMobileController>(() => ChemicalMobileController());
+    Get.lazyPut<ChemicalLogController>(() => ChemicalLogController());
   }
 }

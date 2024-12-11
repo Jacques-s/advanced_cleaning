@@ -1,8 +1,8 @@
 import 'package:advancedcleaning/app_router.dart';
 import 'package:advancedcleaning/constants/app_constants.dart';
-import 'package:advancedcleaning/controllers/procedure_mobile_controller.dart';
+import 'package:advancedcleaning/controllers/mobile_controllers/procedure_mobile_controller.dart';
 import 'package:advancedcleaning/models/procedure_model.dart';
-import 'package:advancedcleaning/screens/mobile/procedures_view_screen_mobile.dart';
+import 'package:advancedcleaning/screens/mobile/procedure_screens/procedures_view_screen_mobile.dart';
 import 'package:advancedcleaning/shared_widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -77,22 +77,24 @@ class ProceduresScreenMobile extends GetView<ProcedureMobileController> {
         ),
         body: Obx(() => controller.isLoading.value
             ? const Center(child: CircularProgressIndicator())
-            : Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView.builder(
-                  itemCount: controller.procedures.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        procedureItem(controller.procedures[index]),
-                        SizedBox(
-                          height: Get.height * 0.02,
-                        )
-                      ],
-                    );
-                  },
-                ),
-              )),
+            : controller.procedures.isEmpty
+                ? const Center(child: Text('No procedures'))
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                      itemCount: controller.procedures.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            procedureItem(controller.procedures[index]),
+                            SizedBox(
+                              height: Get.height * 0.02,
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                  )),
       ),
     );
   }

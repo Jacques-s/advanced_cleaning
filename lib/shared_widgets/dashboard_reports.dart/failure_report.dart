@@ -1,5 +1,5 @@
 import 'package:advancedcleaning/constants/app_constants.dart';
-import 'package:advancedcleaning/models/answer_model.dart';
+import 'package:advancedcleaning/models/inspection_models/answer_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

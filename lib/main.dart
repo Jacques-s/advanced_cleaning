@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:advancedcleaning/app_router.dart';
 import 'package:advancedcleaning/constants/app_constants.dart';
 import 'package:advancedcleaning/controllers/auth_controller.dart';
-import 'package:advancedcleaning/controllers/mobile_sync_controller.dart';
+import 'package:advancedcleaning/controllers/mobile_controllers/mobile_sync_controller.dart';
 import 'package:advancedcleaning/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -16,6 +16,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   Get.put(AuthController());
   runApp(const MyApp());
 }

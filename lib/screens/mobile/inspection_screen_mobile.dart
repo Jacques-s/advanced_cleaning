@@ -1,14 +1,14 @@
 import 'package:advancedcleaning/constants/app_constants.dart';
-import 'package:advancedcleaning/controllers/inspection_mobile_controller.dart';
+import 'package:advancedcleaning/controllers/mobile_controllers/inspection_mobile_controller.dart';
 import 'package:advancedcleaning/models/enum_model.dart';
-import 'package:advancedcleaning/models/question_answer_model.dart';
+import 'package:advancedcleaning/models/inspection_models/question_answer_model.dart';
 import 'package:advancedcleaning/shared_widgets/general_submit_button.dart';
 import 'package:advancedcleaning/shared_widgets/general_text_field.dart';
 import 'package:advancedcleaning/shared_widgets/inspection_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
+import 'package:simple_barcode_scanner/enum.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 class InspectionScreenMobile extends GetView<InspectionMobileController> {
   const InspectionScreenMobile({super.key});
@@ -92,21 +92,6 @@ class InspectionScreenMobile extends GetView<InspectionMobileController> {
     );
   }
 
-  showBarcodeScanner() async {
-    String barcodeScanRes;
-    try {
-      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-
-      if (barcodeScanRes.isNotEmpty && barcodeScanRes != '-1') {
-        controller.currentAreaBarcode.value = barcodeScanRes;
-        controller.fetchQuestions();
-      }
-    } on PlatformException {
-      barcodeScanRes = 'Failed to get platform version.';
-    }
-  }
-
   showConfirmExit() {
     Get.dialog(
       Dialog(
@@ -164,11 +149,25 @@ class InspectionScreenMobile extends GetView<InspectionMobileController> {
       );
     } else if (val == 0) {
       return Center(
-          child: GeneralSubmitButton(
-              label: 'Scan Area',
-              onPress: () {
-                showBarcodeScanner();
-              }));
+        child: GeneralSubmitButton(
+          label: 'Scan Area',
+          onPress: () async {
+            var barcodeScanRes = await SimpleBarcodeScanner.scanBarcode(
+                Get.context!,
+                lineColor: '#ff6666',
+                cancelButtonText: 'Cancel',
+                isShowFlashIcon: true,
+                scanType: ScanType.barcode);
+
+            if (barcodeScanRes != null &&
+                barcodeScanRes.isNotEmpty &&
+                barcodeScanRes != '-1') {
+              controller.currentAreaBarcode.value = barcodeScanRes;
+              controller.fetchQuestions();
+            }
+          },
+        ),
+      );
     } else {
       return Center(
         child: GeneralSubmitButton(
@@ -245,10 +244,10 @@ class InspectionScreenMobile extends GetView<InspectionMobileController> {
                                 vertical: Get.height * 0.006),
                             child: ListTile(
                               onTap: () {
-                                //This is only for testing, you should comment it out!
-                                controller.currentAreaBarcode.value =
-                                    item['areaBarcode'];
-                                controller.fetchQuestions();
+                                //Todo: This is only for testing, you should comment it out!
+                                // controller.currentAreaBarcode.value =
+                                //     item['areaBarcode'];
+                                // controller.fetchQuestions();
                               },
                               title: Text(
                                 item['areaTitle'] ?? '',

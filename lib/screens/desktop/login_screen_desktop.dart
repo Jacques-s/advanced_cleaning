@@ -11,9 +11,6 @@ class LoginScreenDesktop extends GetView<LoginController> {
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
 
   Form loginForm() {
-    controller.emailController.text = 'jacques.jexware@gmail.com';
-    controller.passwordController.text = 'Jaun@13101994';
-
     return Form(
       key: _loginFormKey,
       child: Column(

@@ -1,7 +1,7 @@
 import 'package:advancedcleaning/constants/app_constants.dart';
-import 'package:advancedcleaning/controllers/checmical_mobile_controller.dart';
+import 'package:advancedcleaning/controllers/mobile_controllers/checmical_log_controller.dart';
 import 'package:advancedcleaning/models/procedure_model.dart';
-import 'package:advancedcleaning/screens/mobile/chemical_view_screen_mobile.dart';
+import 'package:advancedcleaning/screens/mobile/chemical_screens/chemical_view_screen_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -159,7 +159,7 @@ class ProceduresViewScreenMobile extends StatelessWidget {
                               Get.to(
                                   () => ChemicalViewScreenMobile(
                                       chemical: chemical),
-                                  binding: ChemicalMobileControllerBinding());
+                                  binding: ChemicalLogControllerBinding());
                             },
                             child: Text(
                               '${chemical.title} - ${chemical.dilutionRange}',

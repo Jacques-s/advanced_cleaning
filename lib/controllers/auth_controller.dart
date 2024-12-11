@@ -49,6 +49,7 @@ class AuthController extends GetxController {
 
   String? get currentUserId => _currentUserId.value;
   String? get currentAccountId => _currentUser.value?.accountId;
+  UserRole? get currentUserRole => _currentUser.value?.role;
 
   //The selected site for the current user
   String? get currentUserSiteId => _currentUserSiteId.value;

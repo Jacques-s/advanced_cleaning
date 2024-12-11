@@ -1,13 +1,13 @@
 import 'package:advancedcleaning/constants/app_constants.dart';
-import 'package:advancedcleaning/controllers/checmical_mobile_controller.dart';
-import 'package:advancedcleaning/models/chemical_model.dart';
+import 'package:advancedcleaning/controllers/mobile_controllers/checmical_log_controller.dart';
+import 'package:advancedcleaning/models/chemical_models/chemical_model.dart';
 import 'package:advancedcleaning/shared_widgets/general_date_field.dart';
 import 'package:advancedcleaning/shared_widgets/general_submit_button.dart';
 import 'package:advancedcleaning/shared_widgets/general_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ChemicalViewScreenMobile extends GetView<ChemicalMobileController> {
+class ChemicalViewScreenMobile extends GetView<ChemicalLogController> {
   const ChemicalViewScreenMobile({
     super.key,
     required this.chemical,

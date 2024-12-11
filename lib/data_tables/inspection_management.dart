@@ -1,4 +1,4 @@
-import 'package:advancedcleaning/models/inspection_model.dart';
+import 'package:advancedcleaning/models/inspection_models/inspection_model.dart';
 import 'package:flutter/material.dart';
 
 class InspectionManagementDataSource extends DataTableSource {

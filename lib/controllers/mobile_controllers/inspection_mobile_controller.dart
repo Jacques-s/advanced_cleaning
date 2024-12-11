@@ -4,12 +4,12 @@ import 'dart:math';
 import 'package:advancedcleaning/app_router.dart';
 import 'package:advancedcleaning/constants/app_constants.dart';
 import 'package:advancedcleaning/controllers/auth_controller.dart';
-import 'package:advancedcleaning/controllers/mobile_sync_controller.dart';
-import 'package:advancedcleaning/models/answer_model.dart';
+import 'package:advancedcleaning/controllers/mobile_controllers/mobile_sync_controller.dart';
+import 'package:advancedcleaning/models/inspection_models/answer_model.dart';
 import 'package:advancedcleaning/models/area_model.dart';
 import 'package:advancedcleaning/models/enum_model.dart';
-import 'package:advancedcleaning/models/inspection_model.dart';
-import 'package:advancedcleaning/models/question_answer_model.dart';
+import 'package:advancedcleaning/models/inspection_models/inspection_model.dart';
+import 'package:advancedcleaning/models/inspection_models/question_answer_model.dart';
 import 'package:advancedcleaning/models/site_model.dart';
 import 'package:get/get.dart';
 
@@ -80,6 +80,7 @@ class InspectionMobileController extends GetxController {
     } catch (e) {
       Get.snackbar('Error', 'Error loading questions: $e',
           duration: appSnackBarDuration, backgroundColor: appSnackBarColor);
+      currentAreaBarcode.value = null;
     } finally {
       isLoading.value = false;
     }

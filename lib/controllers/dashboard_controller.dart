@@ -1,10 +1,10 @@
 import 'package:advancedcleaning/constants/app_constants.dart';
-import 'package:advancedcleaning/models/answer_model.dart';
+import 'package:advancedcleaning/models/inspection_models/answer_model.dart';
 import 'package:advancedcleaning/models/area_model.dart';
-import 'package:advancedcleaning/models/chemical_log_model.dart';
+import 'package:advancedcleaning/models/chemical_models/chemical_log_model.dart';
 import 'package:advancedcleaning/models/corrective_action_model.dart';
 import 'package:advancedcleaning/models/enum_model.dart';
-import 'package:advancedcleaning/models/question_model.dart';
+import 'package:advancedcleaning/models/inspection_models/question_model.dart';
 import 'package:advancedcleaning/models/site_model.dart';
 import 'package:advancedcleaning/shared_widgets/dashboard_pdfs/checklist_pdf.dart';
 import 'package:advancedcleaning/shared_widgets/dashboard_pdfs/chemical_log_pdf.dart';

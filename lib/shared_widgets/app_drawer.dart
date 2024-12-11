@@ -82,24 +82,25 @@ class AppDrawer extends GetView<AuthController> {
                 enabled: activePage != Routes.PROCEDURE_MANAGEMENT,
                 onTap: () {
                   Get.offAllNamed(Routes.PROCEDURE_MANAGEMENT);
-                  print(activePage);
                 },
               ),
             ],
           ),
+          ListTile(
+            leading: const Icon(Icons.notifications),
+            title: const Text('Notifications'),
+            selected: activePage == Routes.NOTIFICATIONS,
+            selectedTileColor: appAccentColor,
+            enabled: activePage != Routes.NOTIFICATIONS,
+            onTap: () {
+              Get.offAllNamed(Routes.NOTIFICATIONS);
+            },
+          ),
           if (!kIsWeb && !Platform.isMacOS)
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              selected: activePage == Routes.SETTINGS,
-              selectedTileColor: appAccentColor,
-              enabled: activePage != Routes.SETTINGS,
-              onTap: () {
-                Get.offAllNamed(Routes.SETTINGS);
-              },
+            _AppOnlyLinks(
+              activePage: activePage,
             ),
-          if (controller.currentUser != null &&
-              controller.currentUser!.role == UserRole.admin)
+          if (controller.currentUserRole == UserRole.admin)
             Column(
               children: [
                 ListTile(
@@ -136,6 +137,54 @@ class AppDrawer extends GetView<AuthController> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _AppOnlyLinks extends GetView<AuthController> {
+  const _AppOnlyLinks({super.key, required this.activePage});
+
+  final String activePage;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          leading: const Icon(Icons.error_outline),
+          title: const Text('NCR\'s'),
+          selected: activePage == Routes.CREATE_NCR,
+          selectedTileColor: appAccentColor,
+          enabled: activePage != Routes.CREATE_NCR,
+          onTap: () {
+            if (controller.currentUserRole == UserRole.siteManager) {
+              Get.offAllNamed(Routes.NCR_MENU);
+            } else {
+              Get.offAllNamed(Routes.CREATE_NCR);
+            }
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.science),
+          title: const Text('Chemicals'),
+          selected: activePage == Routes.CHEMICAL_MENU,
+          selectedTileColor: appAccentColor,
+          enabled: activePage != Routes.CHEMICAL_MENU,
+          onTap: () {
+            Get.offAllNamed(Routes.CHEMICAL_MENU);
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.settings),
+          title: const Text('Settings'),
+          selected: activePage == Routes.SETTINGS,
+          selectedTileColor: appAccentColor,
+          enabled: activePage != Routes.SETTINGS,
+          onTap: () {
+            Get.offAllNamed(Routes.SETTINGS);
+          },
+        ),
+      ],
     );
   }
 }

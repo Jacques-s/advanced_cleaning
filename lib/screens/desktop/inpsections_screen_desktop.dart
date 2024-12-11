@@ -2,7 +2,7 @@ import 'package:advancedcleaning/app_router.dart';
 import 'package:advancedcleaning/constants/app_constants.dart';
 import 'package:advancedcleaning/controllers/inspection_controller.dart';
 import 'package:advancedcleaning/data_tables/inspection_management.dart';
-import 'package:advancedcleaning/models/inspection_model.dart';
+import 'package:advancedcleaning/models/inspection_models/inspection_model.dart';
 import 'package:advancedcleaning/shared_widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:advancedcleaning/app_router.dart';
 import 'package:advancedcleaning/constants/app_constants.dart';
 import 'package:advancedcleaning/controllers/procedure_controller.dart';
 import 'package:advancedcleaning/data_tables/procedure_management.dart';
-import 'package:advancedcleaning/models/chemical_model.dart';
+import 'package:advancedcleaning/models/chemical_models/chemical_model.dart';
 import 'package:advancedcleaning/models/procedure_model.dart';
 import 'package:advancedcleaning/shared_widgets/app_drawer.dart';
 import 'package:advancedcleaning/shared_widgets/chemical_multi_text_field.dart';
@@ -29,7 +27,7 @@ class ProceduresScreenDesktop extends GetView<ProcedureController> {
           border: Border.all(color: appPrimaryColor),
           color: appAccentColor,
         ),
-        child: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+        child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
       ),
       Container(
         width: Get.width * 0.2,
@@ -54,7 +52,8 @@ class ProceduresScreenDesktop extends GetView<ProcedureController> {
               border: Border.all(color: appPrimaryColor),
               color: appAccentColor,
             ),
-            child: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+            child: Text(title,
+                style: const TextStyle(fontWeight: FontWeight.bold)),
           ),
           for (int index = 0;
               index < values.length;
@@ -124,7 +123,7 @@ class ProceduresScreenDesktop extends GetView<ProcedureController> {
                                 border: Border.all(color: appPrimaryColor),
                                 color: appAccentColor,
                               ),
-                              child: Text('Chemicals',
+                              child: const Text('Chemicals',
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ),
@@ -155,7 +154,7 @@ class ProceduresScreenDesktop extends GetView<ProcedureController> {
                                 border: Border.all(color: appPrimaryColor),
                                 color: appAccentColor,
                               ),
-                              child: Text('PPE & Safety Requirements',
+                              child: const Text('PPE & Safety Requirements',
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ),
@@ -215,17 +214,27 @@ class ProceduresScreenDesktop extends GetView<ProcedureController> {
                       child: Column(
                         children: [
                           ...procedure.imageUrls.map(
-                            (url) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: AspectRatio(
+                            (url) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: AspectRatio(
                                   aspectRatio: 1 / 1,
                                   child: FadeInImage.assetNetwork(
                                     placeholder:
-                                        'assets/images/placeholder.png', // Add a placeholder image
+                                        'assets/images/placeholder.png',
                                     image: url,
                                     fit: BoxFit.contain,
-                                  )),
-                            ),
+                                    imageErrorBuilder:
+                                        (context, error, stackTrace) {
+                                      return Image.asset(
+                                        'assets/images/placeholder.png',
+                                        fit: BoxFit.contain,
+                                      );
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -301,6 +310,9 @@ class ProceduresScreenDesktop extends GetView<ProcedureController> {
 
     TextEditingController checmicalTitleController = TextEditingController();
     TextEditingController dilutionRangeController = TextEditingController();
+
+    // Reset image selections when creating or editing a procedure
+    controller.selectedImages.clear(); // Clear selected images
 
     Get.dialog(
       Obx(
@@ -437,6 +449,7 @@ class ProceduresScreenDesktop extends GetView<ProcedureController> {
                 label: 'Chemicals',
                 titleController: checmicalTitleController,
                 dilutionRangeController: dilutionRangeController,
+                accountId: controller.selectedAccountId.value,
                 onItemAdded: (value) {
                   controller.chemicals.add(value);
                 },
@@ -612,8 +625,8 @@ class ProceduresScreenDesktop extends GetView<ProcedureController> {
                 children: [
                   ...controller.selectedImages.map((file) => Stack(
                         children: [
-                          Image.file(
-                            File(file.path!),
+                          Image.memory(
+                            file.bytes!,
                             width: 100,
                             height: 100,
                             fit: BoxFit.cover,

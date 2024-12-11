@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:advancedcleaning/constants/app_constants.dart';
 import 'package:advancedcleaning/controllers/auth_controller.dart';
 import 'package:advancedcleaning/models/account_model.dart';
-import 'package:advancedcleaning/models/answer_model.dart';
+import 'package:advancedcleaning/models/inspection_models/answer_model.dart';
 import 'package:advancedcleaning/models/area_model.dart';
+import 'package:advancedcleaning/models/ncr_models/client_ncr_model.dart';
 import 'package:advancedcleaning/models/enum_model.dart';
-import 'package:advancedcleaning/models/inspection_model.dart';
-import 'package:advancedcleaning/models/question_answer_model.dart';
-import 'package:advancedcleaning/models/question_model.dart';
+import 'package:advancedcleaning/models/inspection_models/inspection_model.dart';
+import 'package:advancedcleaning/models/inspection_models/question_answer_model.dart';
+import 'package:advancedcleaning/models/inspection_models/question_model.dart';
+import 'package:advancedcleaning/models/notification_model.dart';
 import 'package:advancedcleaning/models/site_model.dart';
 import 'package:advancedcleaning/models/user_model.dart';
 import 'package:advancedcleaning/models_mobile/db_constants.dart';
@@ -384,7 +386,20 @@ class MobileSyncController extends GetxController {
         return {'area': area, 'questions': questionAnswers};
       }
     }
-    return {'area': [], 'questions': []};
+
+    throw ('Area not found');
+  }
+
+  Future<InspectionArea?> getLocalAreaByBarcode(String areaBarcode) async {
+    Database db = await instance.database;
+    final rawArea = await db.query(DbAreas.table,
+        where: '${DbAreas.columnBarcode} = ?',
+        whereArgs: [areaBarcode],
+        limit: 1);
+    if (rawArea.isNotEmpty) {
+      return InspectionArea.fromDB(rawArea.first);
+    }
+    return null;
   }
 
   // Gets all the user's linked sites
@@ -840,5 +855,81 @@ class MobileSyncController extends GetxController {
     } else {
       return [];
     }
+  }
+
+  Future<void> saveClientNcr(ClientNCR ncr) async {
+    try {
+      isLoading.value = true;
+      await _firestore.collection(clientNcrPath).add(ncr.toFirestore());
+    } catch (e) {
+      print("Error saving client NCR: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  // Get the notifications for the current user
+  Future<List<AppNotification>> getNotifications() async {
+    final rawNotifications = await _firestore
+        .collection(notificationPath)
+        .where('userId', isEqualTo: authController.currentUserId)
+        .where('read', isEqualTo: false)
+        .get();
+    return rawNotifications.docs
+        .map((doc) => AppNotification.fromFirestore(doc))
+        .toList();
+  }
+
+  // Mark a notification as read
+  Future<void> markNotificationAsRead(String notificationId) async {
+    await _firestore.collection(notificationPath).doc(notificationId).update({
+      'read': true,
+    });
+  }
+
+  // Send Notification
+  Future<void> sendNotification({
+    required String title,
+    required String message,
+    required String userId,
+    required String eventId,
+    required String accountId,
+    required String siteId,
+    required String type,
+  }) async {
+    AppNotification notification = AppNotification(
+      id: '',
+      title: title,
+      message: message,
+      userId: userId,
+      eventId: eventId,
+      createdAt: DateTime.now(),
+      read: false,
+      type: type,
+      accountId: accountId,
+      siteId: siteId,
+    );
+
+    await _firestore
+        .collection(notificationPath)
+        .add(notification.toFirestore());
+  }
+
+  Future<List<ClientNCR>> fetchUserClientNcrs(
+      {String status = 'pending'}) async {
+    final rawNcrs = await _firestore
+        .collection(clientNcrPath)
+        .where('responsibleIds', arrayContains: authController.currentUserId)
+        .where('status', isEqualTo: status)
+        .get();
+    return rawNcrs.docs.map((doc) => ClientNCR.fromFirestore(doc)).toList();
+  }
+
+  // Update a client NCR as a site manager
+  Future<void> updateClientNcr(ClientNCR ncr) async {
+    await _firestore
+        .collection(clientNcrPath)
+        .doc(ncr.id)
+        .update(ncr.toFirestore());
   }
 }

@@ -1,7 +1,7 @@
-import 'package:advancedcleaning/controllers/mobile_sync_controller.dart';
+import 'package:advancedcleaning/controllers/mobile_controllers/mobile_sync_controller.dart';
 import 'package:advancedcleaning/models/site_model.dart';
 import 'package:get/get.dart';
-import '../../controllers/auth_controller.dart';
+import '../../../controllers/auth_controller.dart';
 
 class DashboardMobileController extends GetxController {
   final AuthController authController = Get.find();

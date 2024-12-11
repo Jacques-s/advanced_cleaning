@@ -2,7 +2,7 @@ import 'package:advancedcleaning/constants/app_constants.dart';
 import 'package:advancedcleaning/controllers/auth_controller.dart';
 import 'package:advancedcleaning/helpers/storage_helper.dart';
 import 'package:advancedcleaning/models/account_model.dart';
-import 'package:advancedcleaning/models/chemical_model.dart';
+import 'package:advancedcleaning/models/chemical_models/chemical_model.dart';
 import 'package:advancedcleaning/models/procedure_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';

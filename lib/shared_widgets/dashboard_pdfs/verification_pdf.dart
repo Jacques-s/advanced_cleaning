@@ -1,6 +1,6 @@
 import 'package:advancedcleaning/constants/app_constants.dart';
 import 'package:advancedcleaning/helpers/export_helper.dart';
-import 'package:advancedcleaning/models/question_model.dart';
+import 'package:advancedcleaning/models/inspection_models/question_model.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';

@@ -1,4 +1,4 @@
-import 'package:advancedcleaning/models/chemical_model.dart';
+import 'package:advancedcleaning/models/chemical_models/chemical_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 const String procedurePath = 'procedures';
@@ -70,6 +70,7 @@ class Procedure {
           title: value['title'],
           description: value['description'],
           dilutionRange: value['dilutionRange'],
+          accountId: value['accountId'],
         ));
       });
     }

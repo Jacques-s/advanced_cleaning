@@ -11,13 +11,27 @@ class StorageService {
 
     try {
       for (var file in files) {
-        final String fileName = file.name;
+        final String fileName =
+            '${DateTime.now().millisecondsSinceEpoch}_${file.name}';
         final Reference ref =
             _storage.ref().child('$folderName/$objectId/$fileName');
 
-        final UploadTask uploadTask = ref.putFile(File(file.path!));
-        final TaskSnapshot taskSnapshot = await uploadTask;
+        UploadTask uploadTask;
+        if (file.bytes != null) {
+          // For web platform
+          final metadata = SettableMetadata(
+            contentType: 'image/${fileName.split('.').last}',
+          );
+          uploadTask = ref.putData(file.bytes!, metadata);
+        } else {
+          // For other platforms
+          final metadata = SettableMetadata(
+            contentType: 'image/${fileName.split('.').last}',
+          );
+          uploadTask = ref.putFile(File(file.path!), metadata);
+        }
 
+        final TaskSnapshot taskSnapshot = await uploadTask;
         final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
         imageUrls.add(downloadUrl);
       }

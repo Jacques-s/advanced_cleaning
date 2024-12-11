@@ -101,3 +101,5 @@ firebase_options.dart
 .firebaserc
 .firebase/hosting.YnVpbGQvd2Vi.cache
 windows/runner/runner.exe.manifest
+
+functions/node_modules/
